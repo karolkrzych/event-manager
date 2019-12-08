@@ -1,0 +1,7 @@
+.eventListHeader {
+    height: 40px;
+}
+.eventList {
+    height: 430px;
+    overflow: auto;
+}
