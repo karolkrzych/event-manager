@@ -1,13 +1,16 @@
 import React from 'react';
+import './EventDetails.css';
+
 
 
 
 const EventDetails = (props) => {
 
-    return(
-        <h1></h1>
-    )
-
-}
+    return (
+        <div>
+            działam
+        </div>
+      )
+    }
  
 export default EventDetails;

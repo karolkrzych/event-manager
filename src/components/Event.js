@@ -3,11 +3,11 @@ import './Event.css';
 
 
 const Event = (props) => {
-
+    
     
 
     const {title, date, id} = props.event
-
+    
     return ( 
 
         <div className="card" >

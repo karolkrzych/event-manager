@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import EventList from './EventList';
 import AddEvent from './AddEvent';
-import EventDetails from './EventDetails';
 
 class App extends Component {
 
@@ -75,6 +74,7 @@ class App extends Component {
         },
 
       ],
+      isDetailActive: true,
       currentId: 0,
       formIsActive: false,
       errors: {
@@ -116,6 +116,12 @@ counter = this.state.events.length
     })
   }
 
+  // setDetailActivity = () => {
+  //   this.setState({
+  //     isDetailActive: !this.state.isDetailActive
+  //   })
+  // }
+
   handleFormActivation = () => {
     this.setState({
       formIsActive: !this.state.formIsActive
@@ -129,18 +135,18 @@ counter = this.state.events.length
         <div className="row">
 
           <div className="col-sm formComponent">
-            <button className="btn btn-primary formActivationButton" onClick={this.handleFormActivation}>Add event</button>
+            <button className={`btn ${this.state.formIsActive ? "btn-danger" : "btn-primary"} formActivationButton`} onClick={this.handleFormActivation}>{this.state.formIsActive ? "Cancel" : "Add event"}</button>
             {this.state.formIsActive ? <AddEvent addEvent={this.addEvent} /> : null}
           </div>
 
           <div className="col-sm">
-            {<EventList events={this.state.events} setCurrentId={this.setCurrentId}/>} 
+            <EventList events={this.state.events} setCurrentId={this.setCurrentId} currentId={this.state.currentId} isDetailActive={this.state.isDetailActive}/>
           </div>
         </div>
 
-        <div>
-            <EventDetails events={this.state.events} currentId={this.state.currentId}/>
-        </div>
+        {/* <div>
+            <EventDetails events={this.state.events} title={this.state.events.title} currentId={this.state.currentId}/>
+        </div> */}
 
       </div>  
 
