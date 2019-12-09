@@ -34,13 +34,13 @@ class AddEvent extends Component {
      }
      
      messages = {
-        title_incorrect: 'Must contain at least 4 up to 32 characters',
+        title_incorrect: 'Must contain at least 4 up to 24 characters',
         date_incorrect: 'Please insert a valid date',
-        location_incorrect: 'Must contain at least 4 up to 32 characters',
+        location_incorrect: 'Must contain at least 4 up to 24 characters',
         typeOfEvent_incorrect: 'Select one of the listed options',
         phone_incorrect: 'Must be extaclly 9 digits',
         email_incorrect: 'Must contain "@" sign and "." sign',
-        description_incorrect: 'Must contain at least 4 up to 256 characters',
+        description_incorrect: 'Must contain at least 4 up to 64 characters',
      }
 
      formValidation = () => {
@@ -61,7 +61,7 @@ class AddEvent extends Component {
         let email_validation_msg = "";
         let description_validation_msg = "";
 
-        if(this.state.title.length >= 4 && this.state.title.length <= 32) {
+        if(this.state.title.length >= 4 && this.state.title.length <= 24) {
             title = true;
             title_validation_msg = "valid";
         } else {
@@ -76,7 +76,7 @@ class AddEvent extends Component {
             date_validation_msg = "invalid";
         }
 
-        if(this.state.location.length >= 4 && this.state.location.length <= 32) {
+        if(this.state.location.length >= 4 && this.state.location.length <= 24) {
             location = true;
             location_validation_msg = "valid";
         } else {
@@ -105,7 +105,7 @@ class AddEvent extends Component {
             email = false;
             email_validation_msg = "invalid";
         }
-        if(this.state.description.length >= 4 && this.state.description.length <= 256) {
+        if(this.state.description.length >= 4 && this.state.description.length <= 64) {
             description = true;
             description_validation_msg = "valid";
         } else {
@@ -219,11 +219,11 @@ class AddEvent extends Component {
         return ( 
            
             
-            <form className="border form" noValidate>
+            <form className="border rounded form" noValidate>
 
                 <div className="form-group row">
-                    <label htmlFor="title" className="col-sm-2 col-form-label">Title</label>
-                    <div className="col-sm-10">
+                    <label htmlFor="title" className="col-lg-2 col-md-3 col-sm-2 col-form-label">Title</label>
+                    <div className="col-sm-10 col-md-9 col-lg-10">
                         <input type="text" name="title" id="title" className={`form-control ${this.state.wasFormValidated ? "is-"+this.state.errors.title_validation_msg : ""}`} value={this.state.title} onChange={this.handleChange}/>
 
                         {this.state.errors.title && <div className="invalid-feedback">{this.messages.title_incorrect}</div>}
@@ -232,25 +232,25 @@ class AddEvent extends Component {
 
 
                 <div className="form-group row">
-                    <label htmlFor="location" className="col-sm-2 col-form-label">Location</label>
-                    <div className="col-sm-10">
+                    <label htmlFor="location" className="col-lg-2 col-md-3 col-sm-2 col-form-label">Location</label>
+                    <div className="col-sm-10 col-md-9 col-lg-10">
                         <input type="text" name="location" id="location" className={`form-control ${this.state.wasFormValidated ? "is-"+this.state.errors.location_validation_msg : ""}`} value={this.state.location} onChange={this.handleChange}/>
                         {this.state.errors.location && <div className="invalid-feedback">{this.messages.location_incorrect}</div>}
                     </div>
                 </div>
 
                 <div className="form-group row">
-                    <label htmlFor="date" className="col-sm-2 col-form-label">Date</label>
-                    <div className="col-sm-10">
-                        <input type="date"  name="date"  id="date" className={`col-sm-6 form-control ${this.state.wasFormValidated ? "is-"+this.state.errors.date_validation_msg : ""}`}  value={this.state.date || minDate} onChange={this.handleChange}/>
+                    <label htmlFor="date" className="col-lg-2 col-md-3 col-sm-2 col-form-label">Date</label>
+                    <div className="col-lg-6 col-md-9 col-sm-10">
+                        <input type="date"  name="date"  id="date" className={`form-control ${this.state.wasFormValidated ? "is-"+this.state.errors.date_validation_msg : ""}`}  value={this.state.date || minDate} onChange={this.handleChange}/>
                         {this.state.errors.date && <div className="invalid-feedback">{this.messages.date_incorrect}</div>}
                     </div>
                 </div>
 
                 <div className="form-group row">
-                    <label htmlFor="typeOfEvent" className="col-sm-2 col-form-label">Type</label>
-                    <div className="col-sm-10">
-                        <select name="typeOfEvent" className={`col-sm-6 form-control ${this.state.wasFormValidated ? "is-"+this.state.errors.typeOfEvent_validation_msg : ""}`} value={this.state.typeOfEvenet} onChange={this.handleChange}>
+                    <label htmlFor="typeOfEvent" className="col-lg-2 col-md-3 col-sm-2 col-form-label">Type</label>
+                    <div className="col-lg-6 col-md-9 col-sm-10">
+                        <select name="typeOfEvent" className={`form-control ${this.state.wasFormValidated ? "is-"+this.state.errors.typeOfEvent_validation_msg : ""}`} value={this.state.typeOfEvenet} onChange={this.handleChange}>
                             <option value="">Choose...</option>
                             <option value="Sport">Sport</option>
                             <option value="Cultural">Cultural</option>
@@ -261,25 +261,25 @@ class AddEvent extends Component {
                 </div>
 
                 <div className="form-group row">
-                    <label htmlFor="phone" className="col-sm-2 col-form-label">Phone number</label>
-                    <div className="col-sm-10">
-                        <input style={{marginTop: 10}}type="number" name="phone" id="phone" className={`col-sm-6 form-control ${this.state.wasFormValidated ? "is-"+this.state.errors.phone_validation_msg : ""}`} value={this.state.phone} onChange={this.handleChange}/>
+                    <label htmlFor="phone" className="col-lg-2 col-md-3 col-sm-2 col-form-label">Phone number</label>
+                    <div className="col-lg-6 col-md-9 col-sm-10">
+                        <input style={{marginTop: 10}}type="number" name="phone" id="phone" className={`form-control ${this.state.wasFormValidated ? "is-"+this.state.errors.phone_validation_msg : ""}`} value={this.state.phone} onChange={this.handleChange}/>
                         {this.state.errors.phone && <div className="invalid-feedback">{this.messages.phone_incorrect}</div>}
                     </div>
                 </div>
 
                 <div className="form-group row">
-                    <label htmlFor="email" className="col-sm-2 col-form-label">Email</label>
-                    <div className="col-sm-10">
-                        <input type="email" name="email" id="email" className={`col-sm-6 form-control ${this.state.wasFormValidated ? "is-"+this.state.errors.email_validation_msg : ""}`} value={this.state.email} onChange={this.handleChange}/>
+                    <label htmlFor="email" className="col-lg-2 col-md-3 col-sm-2 col-form-label">Email</label>
+                    <div className="col-lg-6 col-md-9 col-sm-10">
+                        <input type="email" name="email" id="email" className={`form-control ${this.state.wasFormValidated ? "is-"+this.state.errors.email_validation_msg : ""}`} value={this.state.email} onChange={this.handleChange}/>
                         {this.state.errors.email && <div className="invalid-feedback">{this.messages.email_incorrect}</div>}
                     </div>
                 </div>
 
                 <div className="form-group row">
-                    <label htmlFor="description" className="col-sm-2 col-form-label">Description</label>
-                    <div className="col-sm-10">
-                        <textarea style={{maxHeight: 200}} type="text" name="description" id="description" className={`form-control ${this.state.wasFormValidated ? "is-"+this.state.errors.description_validation_msg : ""}`} value={this.state.description} onChange={this.handleChange}/>
+                    <label htmlFor="description" className="col-lg-2 col-md-3 col-sm-2 col-form-label">Description</label>
+                    <div className="col-sm-10 col-md-9 col-lg-10">
+                        <textarea style={{maxHeight: 200, minHeight: 68}} type="text" name="description" id="description" className={`form-control ${this.state.wasFormValidated ? "is-"+this.state.errors.description_validation_msg : ""}`} value={this.state.description} onChange={this.handleChange}/>
                         {this.state.errors.description && <div className="invalid-feedback">{this.messages.description_incorrect}</div>}
                     </div>
                 </div>

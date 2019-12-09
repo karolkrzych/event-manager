@@ -80,12 +80,12 @@ counter = this.state.events.length
       <div className="container">
         <div className="row">
 
-          <div className="col-sm formComponent">
-            <button className={`btn ${this.state.formIsActive ? "btn-danger" : "btn-primary"} formActivationButton`} onClick={this.handleFormActivation}>{this.state.formIsActive ? "Cancel" : "Add event"}</button>
+          <div className="col-md formComponent">
+            <button className={`btn ${this.state.formIsActive ? "btn-danger" : "btn-primary"} formActivationButton btn-block`} onClick={this.handleFormActivation}>{this.state.formIsActive ? "Cancel" : "Add event"}</button>
             {this.state.formIsActive ? <AddEvent addEvent={this.addEvent} /> : null}
           </div>
 
-          <div className="col-sm">
+          <div className="col-md">
             <EventList events={this.state.events} setCurrentId={this.setCurrentId} currentId={this.state.currentId} isDetailActive={this.state.isDetailActive} showEventDetails={this.showEventDetails}/>
           </div>
         </div>

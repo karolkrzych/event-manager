@@ -15,7 +15,7 @@ const Event = (props) => {
                 <h5 className="card-title">{title}</h5>
                 <h6 className="card-subtitle mt-2 text-muted">{date}</h6>
             </div>
-            <button type="button" className="btn btn-outline-info info" onClick={() => props.showEventDetails(id)}>Show details</button>
+            <button type="button" className="float-right btn btn-outline-info p-2" onClick={() => props.showEventDetails(id)}>Show details</button>
         </div>
 
      );
