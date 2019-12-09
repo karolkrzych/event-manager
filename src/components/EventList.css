@@ -3,5 +3,10 @@
 }
 .eventList {
     height: 430px;
-    overflow: auto;
+}
+
+
+.eventElementColor:hover {
+    background-color: rgba(243, 243, 243, 0.8);
+    transition: 0.3s;
 }

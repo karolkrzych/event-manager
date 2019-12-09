@@ -9,72 +9,17 @@ class App extends Component {
       events: [
         {
           id: 0,
-          title: 'pozmywać naczynia',
-          description: 'wziąć i te naczynia po prostu pozmywać',
-          typeOfEvent: 'sport',
-          phone: '111111111',
-          email: 'ciap@ciap.pl',
-          location: 'gliwice',
-          date: '2019-12-12',
+          title: 'Example event',
+          description: 'Just to check if everything looks fine.',
+          typeOfEvent: 'Sport',
+          phone: '777777777',
+          email: 'example@email.com',
+          location: 'London',
+          date: '2020-04-20',
           dateAdded: new Date().getTime(),
         },
-        {
-          id: 1,
-          title: 'wynieść śmieci',
-          description: 'wziąć i te śmieci po prostu wynieść',
-          typeOfEvent: 'cultural',
-          phone: '222222222',
-          email: 'tak@tak.pl',
-          location: 'zabrze',
-          date: '2020-01-30',
-          dateAdded: new Date().getTime(),
-        },        {
-          id: 2,
-          title: 'odkurzyć miejsca',
-          description: 'wziąć i te miejsca po prostu odkurzyć',
-          typeOfEvent: 'health',
-          phone: '3333333',
-          email: 'aaa@aaaaa.pl',
-          location: 'katowice',
-          date: '2019-03-30',
-          dateAdded: new Date().getTime(),
-        },
-        {
-          id: 3,
-          title: 'aaaaaaa',
-          description: 'wziąć i te miejsca po prostu odkurzyć',
-          typeOfEvent: 'health',
-          phone: '3333333',
-          email: 'aaa@aaaaa.pl',
-          location: 'katowice',
-          date: '2019-03-30',
-          dateAdded: new Date().getTime(),
-        },
-        {
-          id: 4,
-          title: 'aaaaaaa',
-          description: 'wziąć i te miejsca po prostu odkurzyć',
-          typeOfEvent: 'health',
-          phone: '3333333',
-          email: 'aaa@aaaaa.pl',
-          location: 'katowice',
-          date: '2019-03-30',
-          dateAdded: new Date().getTime(),
-        },
-        {
-          id: 5,
-          title: 'aaaaaaa',
-          description: 'wziąć i te miejsca po prostu odkurzyć',
-          typeOfEvent: 'health',
-          phone: '3333333',
-          email: 'aaa@aaaaa.pl',
-          location: 'katowice',
-          date: '2019-03-30',
-          dateAdded: new Date().getTime(),
-        },
-
       ],
-      isDetailActive: true,
+      isDetailActive: false,
       currentId: 0,
       formIsActive: false,
       errors: {
@@ -116,16 +61,17 @@ counter = this.state.events.length
     })
   }
 
-  // setDetailActivity = () => {
-  //   this.setState({
-  //     isDetailActive: !this.state.isDetailActive
-  //   })
-  // }
-
   handleFormActivation = () => {
     this.setState({
       formIsActive: !this.state.formIsActive
     })
+  }
+
+  showEventDetails = (id) => {
+      this.setState({
+        isDetailActive: !this.state.isDetailActive,
+        currentId: id,
+      })
   }
 
   render() { 
@@ -140,7 +86,7 @@ counter = this.state.events.length
           </div>
 
           <div className="col-sm">
-            <EventList events={this.state.events} setCurrentId={this.setCurrentId} currentId={this.state.currentId} isDetailActive={this.state.isDetailActive}/>
+            <EventList events={this.state.events} setCurrentId={this.setCurrentId} currentId={this.state.currentId} isDetailActive={this.state.isDetailActive} showEventDetails={this.showEventDetails}/>
           </div>
         </div>
 

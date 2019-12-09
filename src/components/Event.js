@@ -10,12 +10,12 @@ const Event = (props) => {
     
     return ( 
 
-        <div className="card" >
+        <div className="card eventElementColor">
             <div className="card-body" onClick={() => props.setCurrentId(id)}>
                 <h5 className="card-title">{title}</h5>
-                <h6 className="card-subtitle mb-2 text-muted">{date}</h6>
+                <h6 className="card-subtitle mt-2 text-muted">{date}</h6>
             </div>
-            <button type="button" className="btn btn-outline-info info">Show details</button>
+            <button type="button" className="btn btn-outline-info info" onClick={() => props.showEventDetails(id)}>Show details</button>
         </div>
 
      );

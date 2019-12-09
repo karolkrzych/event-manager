@@ -40,7 +40,7 @@ class AddEvent extends Component {
         typeOfEvent_incorrect: 'Select one of the listed options',
         phone_incorrect: 'Must be extaclly 9 digits',
         email_incorrect: 'Must contain "@" sign and "." sign',
-        description_incorrect: 'Must contain at least 4 up to 64 characters',
+        description_incorrect: 'Must contain at least 4 up to 256 characters',
      }
 
      formValidation = () => {
@@ -105,7 +105,7 @@ class AddEvent extends Component {
             email = false;
             email_validation_msg = "invalid";
         }
-        if(this.state.description.length >= 4 && this.state.description.length <= 64) {
+        if(this.state.description.length >= 4 && this.state.description.length <= 256) {
             description = true;
             description_validation_msg = "valid";
         } else {

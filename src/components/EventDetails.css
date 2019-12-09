@@ -1,7 +1,16 @@
-.eventDetails {
-    height: 500px;
-    width: 300px;
-    border: 1px solid black;
-    top: 300px;
-    right: 500px;
+.detailsContainer {
+    position: relative;
+    height: 430px;
+}
+
+.eventInfo {
+    position: absolute;
+    right: 0px;
+    top: 378px;
+    
+    height: 50px;
+    padding: 10px;
+}
+.detailsTitle {
+    text-align: center;
 }
