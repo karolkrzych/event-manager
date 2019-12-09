@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ValidationMessages from './ValidationMessages'
 
 class AddEvent extends Component {
     state = { 
@@ -20,7 +21,15 @@ class AddEvent extends Component {
             phone: false,
             email: false,
             description: false,
-        }
+            title_validation_msg:"",
+            location_validation_msg:"",
+            typeOfEvent_validation_msg:"",
+            phone_validation_msg:"",
+            email_validation_msg:"",
+            description_validation_msg:"",
+        },
+
+        wasFormValidated: false,
      }
      
      messages = {
@@ -43,27 +52,59 @@ class AddEvent extends Component {
         let email = false;
         let description = false;
         let correct = false;
+        let title_validation_msg = "";
+        // let date_validation_msg = "";
+        let location_validation_msg = "";
+        let typeOfEvent_validation_msg = "";
+        let phone_validation_msg = "";
+        let email_validation_msg = "";
+        let description_validation_msg = "";
+        let correct_validation_msg = "";
 
         if(this.state.title.length >= 4 && this.state.title.length <= 16) {
             title = true;
+            title_validation_msg = "valid";
+        } else {
+            title = false;
+            title_validation_msg = "invalid";
         }
         // if(this.state.date)
 
         if(this.state.location.length >= 4 && this.state.location.length <= 16) {
-            title = true;
+            location = true;
+            location_validation_msg = "valid";
+        } else {
+            location = false;
+            location_validation_msg = "invalid";
         }
 
         if(this.state.typeOfEvent !== "") {
             typeOfEvent = true;
+            typeOfEvent_validation_msg = "valid";
+        } else {
+            typeOfEvent = false;
+            typeOfEvent_validation_msg = "invalid";
         }
-        if(this.state.location.length === 9) {
+        if(this.state.phone.length === 9) {
             phone = true;
+            phone_validation_msg = "valid";
+        } else {
+            phone = false;
+            phone_validation_msg = "invalid";
         }
         if(this.state.email.indexOf('@') !== -1 && this.state.email.indexOf('.') !== -1) {
             email = true;
+            email_validation_msg = "valid";
+        } else {
+            email = false;
+            email_validation_msg = "invalid";
         }
         if(this.state.description.length >= 4 && this.state.description.length <= 64) {
             description = true;
+            description_validation_msg = "valid";
+        } else {
+            description = false;
+            description_validation_msg = "invalid";
         }
         if(title && location && typeOfEvent && phone && email && description) {
             correct = true;
@@ -75,7 +116,13 @@ class AddEvent extends Component {
             typeOfEvent,
             phone,
             email,
-            description
+            description,
+            title_validation_msg,
+            location_validation_msg,
+            typeOfEvent_validation_msg,
+            phone_validation_msg,
+            email_validation_msg,
+            description_validation_msg,
         })
      }
 
@@ -83,65 +130,60 @@ class AddEvent extends Component {
         this.setState({
             [e.target.name]: e.target.value
         })
-        
      }
 
      handleSubmit = (e) => {
+        
         e.preventDefault();
 
         const {title, date, location, typeOfEvent, phone, email, description} = this.state
 
-        const addEvent = this.props.addEvent(title, date, location, typeOfEvent, phone, email, description)
-        if(addEvent) {
+        const validation = this.formValidation()
+        
+        if(validation.correct) {
+            this.props.addEvent(title, date, location, typeOfEvent, phone, email, description)
+
             this.setState({
-               title: '',
-               date: '',
-               location: '',
-               typeOfEvent: "",
-               phone: '',
-               email: '',
-               description: '' 
+                title: '',
+                date: '',
+                location: '',
+                typeOfEvent: "",
+                phone: '',
+                email: '',
+                description: '' ,
+
+                errors: {
+                    title: false,
+                    date: false,
+                    location: false,
+                    typeOfEvent: false,
+                    phone: false,
+                    email: false,
+                    description: false,
+                },
+                wasFormValidated: false,
+            })
+        } else {
+            this.setState({
+                errors: {
+                    title: !validation.title,
+                    // date: !validation.date,
+                    location: !validation.location,
+                    typeOfEvent: !validation.typeOfEvent,
+                    phone: !validation.phone,
+                    email: !validation.email,
+                    description: !validation.description,
+                    title_validation_msg: validation.title_validation_msg,
+                    // date_validation_msg: validation.date_validation_msg,
+                    location_validation_msg: validation.location_validation_msg,
+                    typeOfEvent_validation_msg: validation.typeOfEvent_validation_msg,
+                    phone_validation_msg: validation.phone_validation_msg,
+                    email_validation_msg: validation.email_validation_msg,
+                    description_validation_msg: validation.description_validation_msg,
+                },
+                wasFormValidated: true,
             })
         }
-
-        // const validation = this.formValidation()
-
-        // if(validation.correct) {
-        //     const addEvent = this.props.addEvent(title, date, location, typeOfEvent, phone, email, description)
-        //     if(addEvent) {
-        //     this.setState({
-        //         title: '',
-        //         date: '',
-        //         location: '',
-        //         typeOfEvent: "",
-        //         phone: '',
-        //         email: '',
-        //         description: '' ,
-
-        //         errors: {
-        //             title: false,
-        //             date: false,
-        //             location: false,
-        //             typeOfEvent: false,
-        //             phone: false,
-        //             email: false,
-        //             description: false,
-        //         }
-        //     })} 
-        // } else {
-        //     this.setState({
-        //         errors: {
-        //             title: !validation.title,
-        //             date: !validation.date,
-        //             location: !validation.location,
-        //             typeOfEvent: !validation.typeOfEvent,
-        //             phone: !validation.phone,
-        //             email: !validation.email,
-        //             description: !validation.description,
-        //         }
-        //     })
-        // }
-
      }
 
      handleClear = (e) => {
@@ -153,30 +195,26 @@ class AddEvent extends Component {
                 typeOfEvent: '',
                 phone: '',
                 email: '',
-                description: '' 
+                description: '' ,
+                wasFormValidated: false,
             })
-
-        
-
         }
      
-        
+    
 
     render() { 
+        console.log(this.state.errors)
         return ( 
+           
             
-            
-            <form className="border form">
+            <form className="border form" noValidate>
 
                 <div className="form-group row">
                     <label htmlFor="title" className="col-sm-2 col-form-label">Title</label>
                     <div className="col-sm-10">
-                        <input type="text" name="title" id="title" className="form-control is-valid"/*{`form-control ${this.state.errors.title ? "is-invalid" : "is-valid" }`}*/ value={this.state.title} onChange={this.handleChange} required/>
-                        <div className="valid-feedback">
+                        <input type="text" name="title" id="title" className={`form-control ${this.state.wasFormValidated ? "is-"+this.state.errors.title_validation_msg : ""}`} value={this.state.title} onChange={this.handleChange}/>
 
-                        </div>
-                           {/* {this.state.errors.title ? <div className="invalid-feedback">{this.messages.title_incorrect}</div> : <div className="valid-feedback">Looks good!</div>} */}
-                        
+                        {this.state.errors.title && <div className="invalid-feedback">{this.messages.title_incorrect}</div>}
                     </div>
                 </div>
 

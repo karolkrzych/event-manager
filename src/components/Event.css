@@ -2,6 +2,10 @@
     position: relative;
 }
 
+.card-body {
+    height: 110px;
+}
+
 .info {
     position: absolute;
     right: 30px;
