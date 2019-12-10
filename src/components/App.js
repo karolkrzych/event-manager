@@ -33,7 +33,7 @@ class App extends Component {
     }
    }
    
-counter = this.state.events.length
+  counter;
   
   addEvent = (title, date, location, typeOfEvent, phone, email, description) => {
 
@@ -77,7 +77,7 @@ counter = this.state.events.length
 
   UNSAFE_componentWillMount() {
     const EventsInLocalStorage = JSON.parse(localStorage.getItem('state') || 1)
-
+  
     if(EventsInLocalStorage === 1) {
       localStorage.setItem('state', JSON.stringify(this.state.events))
       console.log('tworzę obiekt do LS')
@@ -86,10 +86,9 @@ counter = this.state.events.length
       this.setState({
         events: EventsInLocalStorage
       })
-      this.counter = this.state.events.length
       
       console.log('Podmieniam this.state.events')
-    }
+    } this.counter = EventsInLocalStorage.length
   }
 
 
@@ -99,7 +98,7 @@ counter = this.state.events.length
   }
 
   render() { 
-    
+    console.log(this.state.events)
     return ( 
       <div className="container">
         <div className="row">

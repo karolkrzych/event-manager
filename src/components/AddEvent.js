@@ -1,21 +1,13 @@
 import React, { Component } from 'react';
-import Select from 'react-select';
+import $ from 'jquery';
 
 class AddEvent extends Component {
     currentDate = new Date().toISOString().slice(0,10);
-    selectOptions = [
-        { value: "Sport", label: "Sport" },
-        { value: "Cultural", label: "Cultural" },
-        { value: "Health", label: "Health" }
-      ];
-
     state = { 
         title: '',
-        date: this.currentDate,
+        date: '',
         location: '',
-        typeOfEvent: {
-            value: null, 
-            options: this.selectOptions},
+        typeOfEvent: '',
         phone: '',
         email: '',
         description: '',
@@ -77,7 +69,7 @@ class AddEvent extends Component {
             title = false;
             title_validation_msg = "invalid";
         }
-        if(this.state.date) {
+        if(this.state.date.length === 10) {
             date = true;
             date_validation_msg = "valid";
         } else {
@@ -121,7 +113,7 @@ class AddEvent extends Component {
             description = false;
             description_validation_msg = "invalid";
         }
-        if(title && location && typeOfEvent && phone && email && description) {
+        if(title && location && typeOfEvent && phone && email && description && date) {
             correct = true;
         }
         return ({
@@ -143,22 +135,6 @@ class AddEvent extends Component {
         })
      }
 
-     setValue = value => {
-         this.setState(prevState => ({
-             typeOfEvent: {
-                 ...prevState.typeOfEvent,
-                 value
-             }
-         }))
-     }
-
-     hadnleChangeSelect = value => {
-         this.setValue(value)
-     }
-     handleClickSelect = () => {
-        this.setValue(null);
-    };
-
      handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value,
@@ -178,7 +154,7 @@ class AddEvent extends Component {
 
             this.setState({
                 title: '',
-                date: this.currentDate,
+                date: '',
                 location: '',
                 typeOfEvent: "",
                 phone: '',
@@ -196,6 +172,7 @@ class AddEvent extends Component {
                 },
                 wasFormValidated: false,
             }) 
+            $('form').get(0).reset();
         } else {
             this.setState({
                 errors: {
@@ -222,27 +199,26 @@ class AddEvent extends Component {
      }
 
      handleClear = (e) => {
-        this.handleClickSelect()
          e.preventDefault();
          
             this.setState({
                 title: '',
-                date: this.currentDate,
+                typeOfEvent: '',
+                date: '',
                 location: '',
-                // typeOfEvent: '',
                 phone: '',
                 email: '',
                 description: '' ,
                 wasFormValidated: false,
                 
             })
-            
+            $('form').get(0).reset();
         }
      
     
 
     render() { 
-        const { typeOfEvent } = this.state
+        console.log(this.state.errors)
         
         return ( 
            
@@ -279,20 +255,13 @@ class AddEvent extends Component {
                     <label htmlFor="typeOfEvent" className="col-lg-2 col-md-3 col-sm-2 col-form-label">Type</label>
                     <div className="col-lg-6 col-md-9 col-sm-10">
 
-                        <Select 
-                            name="typeOfEvent"
-                            value={typeOfEvent.value}
-                            onChange={this.hadnleChangeSelect}
-                            options={typeOfEvent.options}
-                        />
-
-                        {/* <select name="typeOfEvent" text={this.state.typeOfEvent} className={`form-control ${this.state.wasFormValidated ? "is-"+this.state.errors.typeOfEvent_validation_msg : ""}`} value={this.state.typeOfEvenet} onChange={this.handleChange}>
+                        <select name="typeOfEvent" text={this.state.typeOfEvent} className={`form-control ${this.state.wasFormValidated ? "is-"+this.state.errors.typeOfEvent_validation_msg : ""}`} value={this.state.typeOfEvenet} onChange={this.handleChange}>
                             <option value="">Choose...</option>
                             <option value="Sport" >Sport</option>
                             <option value="Cultural">Cultural</option>
                             <option value="Health">Health</option>
-                        </select> */}
-
+                        </select>
+                        
 
                         {this.state.errors.typeOfEvent && <div className="invalid-feedback">{this.messages.typeOfEvent_incorrect}</div>}
                     </div>
