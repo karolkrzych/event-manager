@@ -52,6 +52,7 @@ counter = this.state.events.length
     this.setState(prevState => ({
       events: [...prevState.events, event]
     }))
+
     return true
   }
 
@@ -74,8 +75,31 @@ counter = this.state.events.length
       })
   }
 
-  render() { 
+  UNSAFE_componentWillMount() {
+    const EventsInLocalStorage = JSON.parse(localStorage.getItem('state') || 1)
 
+    if(EventsInLocalStorage === 1) {
+      localStorage.setItem('state', JSON.stringify(this.state.events))
+      console.log('tworzę obiekt do LS')
+    } else {
+      
+      this.setState({
+        events: EventsInLocalStorage
+      })
+      this.counter = this.state.events.length
+      
+      console.log('Podmieniam this.state.events')
+    }
+  }
+
+
+  componentDidUpdate() {
+    localStorage.setItem('state', JSON.stringify(this.state.events))
+    
+  }
+
+  render() { 
+    
     return ( 
       <div className="container">
         <div className="row">
@@ -90,9 +114,6 @@ counter = this.state.events.length
           </div>
         </div>
 
-        {/* <div>
-            <EventDetails events={this.state.events} title={this.state.events.title} currentId={this.state.currentId}/>
-        </div> */}
 
       </div>  
 
