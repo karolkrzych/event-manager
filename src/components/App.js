@@ -5,7 +5,7 @@ import AddEvent from './AddEvent';
 
 
 class App extends Component {
-
+  counter = 1;
   state = { 
       events: [
         {
@@ -34,7 +34,7 @@ class App extends Component {
     }
    }
    
-  counter;
+  
   
   addEvent = (title, date, location, typeOfEvent, phone, email, description) => {
 
@@ -77,29 +77,26 @@ class App extends Component {
   }
 
   UNSAFE_componentWillMount() {
-    const EventsInLocalStorage = JSON.parse(localStorage.getItem('state') || 1)
-  
-    if(EventsInLocalStorage === 1) {
-      localStorage.setItem('state', JSON.stringify(this.state.events))
-      console.log('tworzę obiekt do LS')
-    } else {
-      
+    const EventsInLocalStorage = JSON.parse(localStorage.getItem('state'))
+    console.log(EventsInLocalStorage)
+    if(EventsInLocalStorage === null) {
+      localStorage.setItem('state', JSON.stringify(this.state.events)) 
+    } 
+    else {
       this.setState({
         events: EventsInLocalStorage
       })
-      
-      console.log('Podmieniam this.state.events')
-    } this.counter = EventsInLocalStorage.length
+      this.counter = EventsInLocalStorage.length
+    } 
+    
   }
 
 
   componentDidUpdate() {
     localStorage.setItem('state', JSON.stringify(this.state.events))
-    
   }
 
   render() { 
-    console.log(this.state.events)
     return ( 
       <div className="container">
         <div className="row">

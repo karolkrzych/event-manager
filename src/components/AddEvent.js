@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 
 class AddEvent extends Component {
-    currentDate = new Date().toISOString().slice(0,10);
+    currentDate = new Date().toISOString().slice(0,10)
+    minDateValue = parseInt(this.currentDate.slice(0, 4))
+    maxDateValue = parseInt(this.currentDate.slice(0, 4)) + 10 
+    maxDate = this.maxDateValue + "-12-31"
+    minDate = this.minDateValue + "-01-01"
+
     state = { 
         title: '',
         date: '',
@@ -35,13 +40,13 @@ class AddEvent extends Component {
      }
      
      messages = {
-        title_incorrect: 'Must contain at least 4 up to 24 characters',
-        date_incorrect: 'Please insert a valid date',
-        location_incorrect: 'Must contain at least 4 up to 24 characters',
+        title_incorrect: 'Must contain at least 4 up to 40 characters and at least one letter',
+        date_incorrect: 'Please insert a valid date. Possible dates range starts from 2019 to 2029',
+        location_incorrect: 'Must contain at least 4 up to 40 characters and at least one letter',
         typeOfEvent_incorrect: 'Select one of the listed options',
         phone_incorrect: 'Must be extaclly 9 digits',
-        email_incorrect: 'Must contain "@" sign and "." sign',
-        description_incorrect: 'Must contain at least 4 up to 64 characters',
+        email_incorrect: 'Must contain "@"  and "." signs and at least one letter',
+        description_incorrect: 'Must contain at least 4 up to 64 characters and at least one letter',
      }
 
      formValidation = () => {
@@ -62,14 +67,16 @@ class AddEvent extends Component {
         let email_validation_msg = "";
         let description_validation_msg = "";
 
-        if(this.state.title.length >= 4 && this.state.title.length <= 24) {
+        const letters = /[A-Za-z]/;
+
+        if(this.state.title.length >= 4 && this.state.title.length <= 40 && this.state.title.match(letters)) {
             title = true;
             title_validation_msg = "valid";
         } else {
             title = false;
             title_validation_msg = "invalid";
         }
-        if(this.state.date.length === 10) {
+        if(this.state.date.length === 10 && parseInt(this.state.date.slice(0,4)) >= this.minDateValue && parseInt(this.state.date.slice(0,4)) <= this.maxDateValue ) {
             date = true;
             date_validation_msg = "valid";
         } else {
@@ -77,7 +84,7 @@ class AddEvent extends Component {
             date_validation_msg = "invalid";
         }
 
-        if(this.state.location.length >= 4 && this.state.location.length <= 24) {
+        if(this.state.location.length >= 4 && this.state.location.length <= 40 && this.state.location.match(letters)) {
             location = true;
             location_validation_msg = "valid";
         } else {
@@ -99,14 +106,14 @@ class AddEvent extends Component {
             phone = false;
             phone_validation_msg = "invalid";
         }
-        if(this.state.email.indexOf('@') !== -1 && this.state.email.indexOf('.') !== -1) {
+        if(this.state.email.indexOf('@') !== -1 && this.state.email.indexOf('.') !== -1 && this.state.email.match(letters)) {
             email = true;
             email_validation_msg = "valid";
         } else {
             email = false;
             email_validation_msg = "invalid";
         }
-        if(this.state.description.length >= 4 && this.state.description.length <= 64) {
+        if(this.state.description.length >= 4 && this.state.description.length <= 64 && this.state.description.match(letters)) {
             description = true;
             description_validation_msg = "valid";
         } else {
@@ -218,7 +225,8 @@ class AddEvent extends Component {
     
 
     render() { 
-        console.log(this.state.errors)
+
+        
         
         return ( 
            
@@ -246,7 +254,7 @@ class AddEvent extends Component {
                 <div className="form-group row">
                     <label htmlFor="date" className="col-lg-2 col-md-3 col-sm-2 col-form-label">Date</label>
                     <div className="col-lg-6 col-md-9 col-sm-10">
-                        <input type="date"  name="date" min={this.currentDate}  id="date" className={`form-control ${this.state.wasFormValidated ? "is-"+this.state.errors.date_validation_msg : ""}`}  value={this.state.date} onChange={this.handleChange}/>
+                        <input type="date"  name="date" min={this.minDate} max={this.maxDate} id="date" className={`form-control ${this.state.wasFormValidated ? "is-"+this.state.errors.date_validation_msg : ""}`}  value={this.state.date} onChange={this.handleChange}/>
                         {this.state.errors.date && <div className="invalid-feedback">{this.messages.date_incorrect}</div>}
                     </div>
                 </div>
@@ -296,7 +304,7 @@ class AddEvent extends Component {
                         <button className="btn btn-success btn-block" onClick={this.handleSubmit}>Submit</button>
                     </div>
                     <div className="col-sm-6">
-                        <button className="btn btn-light btn-block" onClick={this.handleClear}>Clear</button>
+                        <button className="btn btn-secondary btn-block" onClick={this.handleClear}>Clear</button>
                     </div>
                 </div>
 
