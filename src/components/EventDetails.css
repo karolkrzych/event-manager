@@ -1,12 +1,12 @@
 .detailsContainer {
     position: relative;
-    height: 430px;
+    height: inherit;
 }
 
 .eventInfo {
     position: absolute;
     right: 0px;
-    top: 378px;
+    bottom: 0px;
     height: 50px;
     padding: 10px;
 }

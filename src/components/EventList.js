@@ -17,7 +17,7 @@ const EventList = (props) => {
     return ( 
 
         <div className="card" style={{marginTop: 20}}>
-            <div className="card-body border bg-secondary text-white">
+            <div className="card-body border-0 rounded bg-secondary text-white">
                 <div className="card-title eventListHeader"><h2 style={{textAlign: "center"}}>{props.isDetailActive ? "EVENT DETAILS" : "EVENT LIST"}</h2></div>
             </div >
             <div className="eventList" style={props.isDetailActive ? {overflow: "hidden"} : {overflow: "auto"}}>
